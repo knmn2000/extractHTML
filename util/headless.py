@@ -26,6 +26,7 @@ class HeadlessBrowser():
         self.url = url
         self.wait_time = wait_time
         options = webdriver.FirefoxOptions()
+        options.headless = True                 # Toggle headless mode options
         # TODO: replace path with environment variable path
         options.binary_location = FIREFOX_BINARY
         self.driver = webdriver.Firefox(executable_path = GECKODRIVER_PATH, options=options)
