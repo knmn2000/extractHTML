@@ -1,1 +1,2 @@
 from .headless import HeadlessBrowser
+from .extractFromHTMLHandler import extractFromHTMLHandler

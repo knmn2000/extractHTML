@@ -3,14 +3,22 @@ import json
 from flask import Flask, request
 
 from util import HeadlessBrowser
+from util import extractFromHTMLHandler
 
 app = Flask(__name__)
+
+
 @app.route('/')
 def home():
     return """USAGE: \n\t[GET] /url : returns readability content by loading given URL on a browser.\n
                        \t[GET] /html: returns readability content by parsing through given HTML body.\n"""
 
-# TODO: implement /html
+
+@app.route('/html', methods=['GET'])
+def extractFromHTML():
+    return extractFromHTMLHandler(json.loads(request.data)['HTML'])
+
+
 @app.route('/url', methods=['GET'])
 def extractFromURL():
     """Extract HTML content from given URL.
