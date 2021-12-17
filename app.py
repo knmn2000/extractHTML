@@ -1,19 +1,27 @@
 import json
 
-import requests
 from flask import Flask, request
-from readabilipy import simple_json_from_html_string
+
+from util import HeadlessBrowser
 
 app = Flask(__name__)
+@app.route('/')
+def home():
+    return """USAGE: \n\t[GET] /url : returns readability content by loading given URL on a browser.\n
+                       \t[GET] /html: returns readability content by parsing through given HTML body.\n"""
 
-@app.route('/url', methods=['POST'])
-def jsonToHtml():
-    # getClientSideRenderedSource()
+# TODO: implement /html
+@app.route('/url', methods=['GET'])
+def extractFromURL():
+    """Extract HTML content from given URL.
+
+    Returns:
+        json: HTML content
+    """
     url = json.loads(request.data)['URL']
-    print(json.loads(request.data)['URL'])
-    req = requests.get(url)
-    article = simple_json_from_html_string(req.text)
-    return article
+    with HeadlessBrowser(url) as browser:
+        readability_content = browser.fetchContent()
+        return readability_content
 
 
 if __name__ == '__main__':
