@@ -3,11 +3,6 @@ from os.path import abspath, dirname, join
 from envs import env
 from readabilipy import simple_json_from_html_string
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support import wait
-from selenium.webdriver.support.ui import WebDriverWait
 
 PATH_DIR = dirname(abspath(__file__))
 GECKODRIVER_PATH = abspath(join(PATH_DIR, "./../geckodriver.exe"))
